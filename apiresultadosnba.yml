@@ -1,0 +1,117 @@
+openapi: 3.0.0
+info:
+  title: API de Backend NBA
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /login:
+    get:
+      summary: Página de inicio de sesión
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string
+    post:
+      summary: Iniciar sesión
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string
+  /:
+    get:
+      summary: Página de inicio
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string
+  /auth/google:
+    get:
+      summary: Autenticación con Google
+      responses:
+        '200':
+          description: OK
+  /auth/google/callback:
+    get:
+      summary: Callback de autenticación de Google
+      responses:
+        '200':
+          description: OK
+  /logout:
+    post:
+      summary: Cerrar sesión
+      responses:
+        '200':
+          description: OK
+  /lookup/{rival1}/{rival2}/{fecha}:
+    get:
+      summary: Obtener resultado de un partido
+      parameters:
+        - name: rival1
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: rival2
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: fecha
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rival1:
+                    type: string
+                  rival2:
+                    type: string
+                  fecha:
+                    type: string
+                  resultado:
+                    type: string
+  /save:
+    post:
+      summary: Guardar resultado de un partido
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rival1:
+                  type: string
+                rival2:
+                  type: string
+                fecha:
+                  type: string
+                resultado:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
